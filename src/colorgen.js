@@ -323,11 +323,12 @@ export function tridColor(n, range1, range2, range3, ref = undefined, sat = 1, b
 /**
  * mix 3 color to get a new one, use the greyControl to control the grey value (0:low -1:high)
  * 
- * @param {*} color1 first color to mix, @see {@link parseColor}
- * @param {*} color2 second color to mix, @see {@link parseColor}
- * @param {*} color3 third color to mix, @see {@link parseColor}
+ * @param {*} color1 first color to mix, see {@link parseColor}
+ * @param {*} color2 second color to mix, see {@link parseColor}
+ * @param {*} color3 third color to mix, see {@link parseColor}
  * @param {number} greyControl 0-1, how much grey get mix in
  * @returns {Array} a color array in RGB format
+ * @see {@link parseColor}
  */
 export function tridMixing(color1, color2, color3, greyControl) {
     color1 = parseColor(color1);
@@ -348,7 +349,8 @@ export function tridMixing(color1, color2, color3, greyControl) {
  * YIQ color contrast calculation, returning black or white determination of
  * optimal foreground color
  * 
- * @param {*} color the foreground color, @see {@link parseColor}
+ * @param {*} color the foreground color, 
+ * @see {@link parseColor}
  * @returns {boolean} true for black(dark color) and false for white(bright color)
  */
 export function yiq(color) {
@@ -360,7 +362,8 @@ export function yiq(color) {
 /**
  * cast the color to 24 bit int RGB color
  * 
- * @param {any} color the color to cast, @see {@link parseColor} for input options
+ * @param {any} color the color to cast, 
+ * @see {@link parseColor} for input options
  * @returns {color} a 24bit int color
  */
 export function to24BitRGB(color) {
@@ -377,7 +380,8 @@ export function to24BitRGB(color) {
 /**
  * cast the color array to 32 bit int ARGB color
  * 
- * @param {*} color the color to cast, @see {@link parseColor} for input options
+ * @param {*} color the color to cast, 
+ * @see {@link parseColor} for input options
  * @param {number} alpha alpha value of the color output, 0 - 255
  * @returns {color} a 32bit int color
  */

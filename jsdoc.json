@@ -1,10 +1,47 @@
 {
     "opts": {
-        "template": "node_modules/better-docs",
-        "destination" : "./docs/api/"
+        "template": "node_modules/clean-jsdoc-theme",
+        "destination": "./docs/api/",
+        "encoding": "utf8",
+        "readme": "./README.md",
+        "recurse": true,
+        "verbose": true,
+        "theme_opts": {
+            "default_theme": "dark",
+            "base_url": "https://Real-John-Cheung.github.io/CodeGenJS/api/colorgen-js/1.0.0/",
+            "homepageTitle": "Color Gen",
+            "menu": [{
+                "title": "JohnC",
+                "link": "https:johncheung.art",
+                "target": "_blank",
+                "class": "",
+                "id": ""
+            }]
+        },
+        "codepen": {
+            "enable_for": ["examples"],
+            "options": {
+                "js_external": "https://code.jquery.com/jquery-3.6.0.min.js",
+                "js_pre_processor": "babel"
+            }
+        }
+    },
+    "templates": {
+        "default": {
+            "outputSourceFiles": false
+        }
     },
 
-    "source" : {
-        "include": ["./src", "./package.json"]
+    "plugins": ["plugins/markdown"],
+
+    "source": {
+        "include": ["./src", "package.json"],
+        "includePattern": ".js$"
+    },
+
+    "markdown": {
+        "hardwrap": false,
+        "idInHeadings": true
     }
+
 }
