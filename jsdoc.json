@@ -8,7 +8,7 @@
         "verbose": true,
         "theme_opts": {
             "default_theme": "dark",
-            "base_url": "https://Real-John-Cheung.github.io/CodeGenJS/api/colorgen-js/1.0.0/",
+            "base_url": "https://Real-John-Cheung.github.io/colorGenJS/api/colorgen-js/1.0.0/",
             "homepageTitle": "Color Gen",
             "menu": [{
                 "title": "JohnC",
