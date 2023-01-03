@@ -1,0 +1,10 @@
+{
+    "opts": {
+        "template": "node_modules/better-docs",
+        "destination" : "./docs/api/"
+    },
+
+    "source" : {
+        "include": ["./src", "./package.json"]
+    }
+}

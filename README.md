@@ -1,2 +1,2 @@
 # colorGenJS
-a module for color generation 
+A color generation library for JavaScript
