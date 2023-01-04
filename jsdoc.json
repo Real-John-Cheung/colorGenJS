@@ -8,22 +8,25 @@
         "verbose": true,
         "theme_opts": {
             "default_theme": "dark",
+            "sections": ["Modules", "Tutorials"],
             "base_url": "https://Real-John-Cheung.github.io/colorGenJS/api/colorgen-js/1.0.0/",
             "homepageTitle": "Color Gen",
             "menu": [{
+                "title": "Github",
+                "link": "https://github.com/Real-John-Cheung/colorGenJS",
+                "target": "_blank",
+                "class": "",
+                "id": ""
+            },{
                 "title": "JohnC",
-                "link": "https:johncheung.art",
+                "link": "https://johncheung.art",
                 "target": "_blank",
                 "class": "",
                 "id": ""
             }]
         },
         "codepen": {
-            "enable_for": ["examples"],
-            "options": {
-                "js_external": "https://code.jquery.com/jquery-3.6.0.min.js",
-                "js_pre_processor": "babel"
-            }
+            "enable_for": ["examples"]
         }
     },
     "templates": {

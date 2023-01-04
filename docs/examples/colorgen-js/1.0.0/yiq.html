@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Color Gen JS Example - RandomRGB</title>
+    <meta charset="utf-8">
+
+</head>
+
+<body>
+    <h3>Code</h3>
+    <div id="code">
+        <pre>
+            <code>
+&lt;div id="target" style="width: 100%; height: 100px; text-align: center; font-size: 25px;">&lt;/div>
+&lt;script src="../../../dist/colorgen.js">&lt;/script>
+&lt;script>
+    let tar = document.getElementById("target");
+    function go(){
+        let color = colorgen.randomRGB();
+        let background = colorgen.yiq(color) ? "#101010" : "#fefefe";
+        let border = !colorgen.yiq(color) ? "#101010" : "#fefefe";
+        let hexc = colorgen.to24BitRGB(color).toString(16);
+        while (hexc.length &lt; 6) hexc = "0" + hexc;
+        tar.style.color = "#" + hexc;
+        tar.style.backgroundColor = background;
+        tar.style.border = "solid 5px " + border;
+        tar.innerHTML = "Click &lt;br> to &lt;br> change"
+    }
+    go();
+    tar.onclick = go;
+&lt;/script>
+            </code>
+        </pre>
+    </div>
+    <h3>Result</h3>
+    <div id="live">
+        <div id="target" style="width: 100%; height: 100px; text-align: center; font-size: 50px;"></div>
+        <script src="../../../dist/colorgen.js"></script>
+        <script>
+            let tar = document.getElementById("target");
+            function go(){
+                let color = colorgen.randomRGB();
+                let background = colorgen.yiq(color) ? "#101010" : "#fefefe";
+                let border = !colorgen.yiq(color) ? "#101010" : "#fefefe";
+                let hexc = colorgen.to24BitRGB(color).toString(16);
+                while (hexc.length < 6) hexc = "0" + hexc;
+                tar.style.color = "#" + hexc;
+                tar.style.backgroundColor = background;
+                tar.style.border = "solid 5px " + border;
+                tar.innerHTML = "Click to change"
+            }
+            go();
+            tar.onclick = go;
+        </script>
+    </div>
+</body>

@@ -2,10 +2,10 @@
   "name": "colorgen-js",
   "version": "1.0.0",
   "description": "A color generation library for javascript",
-  "main": "colorgen.js",
+  "main": "docs/dist/colorgen.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "rm -R docs/api && mkdir docs/api && jsdoc -c jsdoc.json"
+    "docs": "rm -R docs/api && mkdir docs/api && jsdoc -u docs/examples -d docs/api -c jsdoc.json"
   },
   "repository": {
     "type": "git",

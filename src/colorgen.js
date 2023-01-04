@@ -9,6 +9,7 @@
  * get a random RGB color
  * 
  * @returns {Array} an array of int [R, G, B] in range of 0 - 255
+ * @tutorial randomRGB 
  */
 export function randomRGB() {
     return [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)];
@@ -19,13 +20,16 @@ export function randomRGB() {
  * 
  * @param {*} color an array ([r,g,b]) or an object (o.r,o.g,o.b or o.R,o.G,o.B) or a (A)RGB color (only RGB is used in this library and only RGB is output from this function)
  * @returns {Array} an array representing the color [r,g,b];
+ * @example 
+ * colorgen.parseColor({r:24, g:25, b:144});
+ * //return [24,25,144]
  */
 export function parseColor(color) {
     let r, g, b;
     if (Array.isArray(color)) {
-        r = color1[0];
-        g = color1[1];
-        b = color1[2];
+        r = color[0];
+        g = color[1];
+        b = color[2];
     } else if (Object.keys(color).includes("r") && Object.keys(color).includes("g") && Object.keys(color).includes("b")) {
         r = color.r;
         g = color.g;
@@ -49,6 +53,7 @@ export function parseColor(color) {
  * @param {*} color1 a color, @see{@link parseColor} for more info
  * @param {*} color2 the other color, @see{@link parseColor} for more info
  * @returns {number} the distance 
+ * @tutorial colorDistance
  */
 export function colorDistance(color1, color2) {
     color1 = parseColor(color1);
@@ -57,7 +62,7 @@ export function colorDistance(color1, color2) {
     let dr = color1[0] - color2[0];
     let dg = color1[1] - color2[1];
     let db = color1[2] - color2[2];
-    return Math.sqrt((((512 + rmean) * dr * dr) / 256) + 4 * dg * dg + (((767 - rmean) * db * db) / 256));
+    return Math.sqrt((((512 + mean) * dr * dr) / 256) + 4 * dg * dg + (((767 - mean) * db * db) / 256));
 }
 
 /**
@@ -66,6 +71,7 @@ export function colorDistance(color1, color2) {
  * @param {*} baseColor a color, @see{@link parseColor} for more info
  * @param {number} offset the max offset
  * @returns {Array} an RGB array (range from 0 - 255);
+ * @tutorial randomOffset 
  */
 export function randomOffset(baseColor, offset) {
     baseColor = parseColor(baseColor);
@@ -83,6 +89,9 @@ export function randomOffset(baseColor, offset) {
  * @param {number} sat 0-1
  * @param {number} bri 0-1
  * @returns {Array} int array representing the corresponding RGB color
+ * @example 
+ * colorgen.HSBtoRGB(0.5,1,1);
+ * // return [0, 255, 255];
  */
 export function HSBtoRGB(hue, sat, bri) {
     if (sat === 0) return [bri * 255, bri * 255, bri * 255];
@@ -118,6 +127,9 @@ export function HSBtoRGB(hue, sat, bri) {
  * @param {number} green between 0 - 255
  * @param {number} blue between 0 - 255
  * @returns {Array} a float array representing the HSB color
+ * @example 
+ * colorgen.RGBtoHSB(0, 255, 255);
+ * //return [0.5, 1, 1]
  */
 export function RGBtoHSB(red, green, blue) {
     let array = [0, 0, 0], min, max;
@@ -170,6 +182,7 @@ export function RGBtoHSB(red, green, blue) {
  * @param {number} sat optional, satuation value between 0 - 1, defalut to 1
  * @param {number} bri optional, brightness value between 0 - 1, defalut to 1
  * @returns {Array} an array of rbg colors
+ * @tutorial gradientRGB
  */
 export function gradientRGB(n, from, to, type, sat = 1, bri = 1) {
     let array = new Array(n);
@@ -186,6 +199,8 @@ export function gradientRGB(n, from, to, type, sat = 1, bri = 1) {
         case "UR":
             for (let i = 0; i < array.length; i++) {
                 let h = from + Math.random() * del;
+                while(h < 0) h ++;
+                h = h % 1;
                 array[i] = HSBtoRGB(h, sat, bri);
             }
             return array;
@@ -196,15 +211,18 @@ export function gradientRGB(n, from, to, type, sat = 1, bri = 1) {
             return array;
         case "JG":
             for (let i = 0; i < array.length; i++) {
-                let maxJitter = 0.5;
-                let h = from + i * ((2 * Math.random() - 1) * maxJitter) * del / n;
+                let maxJitter = (del / n) / 2;
+                let h = from + i * del / n + (Math.random() * 2 - 1) * maxJitter;
+                while(h < 0) h ++;
+                h = h % 1;
                 array[i] = HSBtoRGB(h, sat, bri);
             }
             return array;
         case "GR":
-            let offset = Math.random();
             for (let i = 0; i < array.length; i++) {
-                let h = from + (offset + (0.618033988749895 * i) % 1) * del / n;
+                let h = from + (0.618033988749895 * i) % 1;
+                while (h < 0) h++;
+                h = h % 1;
                 array[i] = HSBtoRGB(h, sat, bri);
             }
             return array;
@@ -225,6 +243,7 @@ export function gradientRGB(n, from, to, type, sat = 1, bri = 1) {
  * @param {number} offset1 optional, float, offset amount 1, default 0, must between 0 - 1
  * @param {number} offset2 optional, float, offset amount 2, default 0, must between 0 - 1
  * @returns {Array} an array of color in RGB format
+ * @see {@link analogousColor} {@link complementaryColor} {@link splitcomplementaryColor} {@link triadColor}
  */
 export function standerHarmonyColor(n, range1, range2, range3, reference = undefined, sat = 1, bri = 1, offset1 = 0, offset2 = 0) {
     if (reference === undefined) reference = Math.random();
@@ -258,6 +277,7 @@ export function standerHarmonyColor(n, range1, range2, range3, reference = undef
  * @param {number} offset1 optional, float, offset amount 1, default 0, must between 0 - 1
  * @param {number} offset2 optional, float, offset amount 1, default 0, must between 0 - 1
  * @returns {Array} an array of colors in RGB format
+ * @tutorial analogousColor
  */
 export function analogousColor(n, range, ref = undefined, sat = 1, bri = 1, offset1 = 0, offset2 = 0) {
     if (ref === undefined) ref = Math.random();
@@ -276,6 +296,7 @@ export function analogousColor(n, range, ref = undefined, sat = 1, bri = 1, offs
  * @param {number} bri optional, float, 0 - 1, default to 1
  * @param {number} offset2 optional, float, offset amount 2, default 0, must between 0 - 1
  * @returns {Array} an array of colors in RGB format
+ * @tutorial complementaryColor
  */
 export function complementaryColor(n, range1, range2, ref = undefined, sat = 1, bri = 1, offset2 = 0) {
     if (ref === undefined) ref = Math.random();
@@ -295,6 +316,7 @@ export function complementaryColor(n, range1, range2, ref = undefined, sat = 1, 
  * @param {number} sat optional, float, 0 - 1, default to 1
  * @param {number} bri optional, float, 0 - 1, default to 1
  * @returns {Array}  an array of colors in RGB format
+ * @tutorial splitcomplementaryColor
  */
 export function splitcomplementaryColor(n, range1, range2, range3, vari, ref = undefined, sat = 1, bri = 1) {
     if (ref === undefined) ref = Math.random();
@@ -314,8 +336,9 @@ export function splitcomplementaryColor(n, range1, range2, range3, vari, ref = u
  * @param {number} sat optional, float, 0 - 1, default to 1
  * @param {number} bri optional, float, 0 - 1, default to 1
  * @returns {Array} an array of colors in RGB format
+ * @tutorial triadColor
  */
-export function tridColor(n, range1, range2, range3, ref = undefined, sat = 1, bri = 1) {
+export function triadColor(n, range1, range2, range3, ref = undefined, sat = 1, bri = 1) {
     if (ref === undefined) ref = Math.random();
     return standerHarmonyColor(n, range1, range2, range3, ref, sat, bri, 0.33333, 0.66667);
 }
@@ -329,8 +352,9 @@ export function tridColor(n, range1, range2, range3, ref = undefined, sat = 1, b
  * @param {number} greyControl 0-1, how much grey get mix in
  * @returns {Array} a color array in RGB format
  * @see {@link parseColor}
+ * @tutorial triadMixing
  */
-export function tridMixing(color1, color2, color3, greyControl) {
+export function triadMixing(color1, color2, color3, greyControl) {
     color1 = parseColor(color1);
     color2 = parseColor(color2);
     color3 = parseColor(color3);
@@ -352,6 +376,7 @@ export function tridMixing(color1, color2, color3, greyControl) {
  * @param {*} color the foreground color, 
  * @see {@link parseColor}
  * @returns {boolean} true for black(dark color) and false for white(bright color)
+ * @tutorial yiq
  */
 export function yiq(color) {
     color = parseColor(color);
@@ -365,13 +390,16 @@ export function yiq(color) {
  * @param {any} color the color to cast, 
  * @see {@link parseColor} for input options
  * @returns {color} a 24bit int color
+ * @example 
+ * colorgen.to24BitRGB([255, 255, 255]).toString(16);
+ * //return "ffffff"
  */
 export function to24BitRGB(color) {
     color = parseColor(color);
     let r, g, b;
-    r = Math.round(c[0]);
-    g = Math.round(c[1]);
-    b = Math.round(c[2]);
+    r = Math.round(color[0]);
+    g = Math.round(color[1]);
+    b = Math.round(color[2]);
     r = r << 16;
     g = g << 8;
     return r | g | b;
@@ -384,12 +412,13 @@ export function to24BitRGB(color) {
  * @see {@link parseColor} for input options
  * @param {number} alpha alpha value of the color output, 0 - 255
  * @returns {color} a 32bit int color
+ * @see to24BitRGB
  */
 export function to32BitARGB(color, alpha) {
     color = parseColor(color);
-    let r = Math.round(c[0]);
-    let g = Math.round(c[1]);
-    let b = Math.round(c[2]);
+    let r = Math.round(color[0]);
+    let g = Math.round(color[1]);
+    let b = Math.round(color[2]);
     a = a << 24;
     r = r << 16;
     g = g << 8;
