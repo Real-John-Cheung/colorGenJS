@@ -22,5 +22,5 @@ const colorgen = require('colorgen-js')
 ```
 
 ## API and Example
-Visit [this page](https://real-john-cheung.github.io/colorGenJS/api/colorgen-js/1.0.0/module-ColorGen.html) for the functions provided by the library
+Visit [this page](https://real-john-cheung.github.io/colorGenJS/api/colorgen-js/1.0.1/module-ColorGen.html) for the functions provided by the library
 
