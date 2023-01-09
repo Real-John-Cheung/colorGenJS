@@ -66,6 +66,49 @@ export function colorDistance(color1, color2) {
 }
 
 /**
+ * caculate the unweighted Euclidean distance of two RGB colors
+ * 
+ * @param {*} color1 first color
+ * @param {*} color2 second color
+ * @returns {number} float, the distance between two color
+ * @see parseColor
+ */
+export function colorDistanceUnweightedRGB(color1, color2) {
+    color1 = parseColor(color1);
+    color2 = parseColor(color2);
+    let dr, dg, db;
+    dr = color1[0] - color2[0];
+    dg = color1[1] - color2[1];
+    db = color1[2] - color2[2];
+    return Math.sqrt(dr * dr + dg * dg + db * db);
+}
+
+/**
+ * caculate the unweighted Euclidean distance of two HSB colors in the HSB cone
+ * 
+ * @param {array} color1 float array representing the first color, [H, S, B] range from 0 - 1;
+ * @param {array} color2 float array representing the second color, [H, S, B] range from 0 - 1;
+ * @returns {number} float, the distance between two color
+ */
+export function colorDistanceHSB(color1, color2) {
+    let h1, h2, b1, b2, s1, s2, a1, a2, aa1, aa2, da, db, dc;
+    h1 = color1[0] * Math.PI * 2;
+    h2 = color2[0] * Math.PI * 2;
+    s1 = color1[1];
+    s2 = color2[1];
+    b1 = color1[2];
+    b2 = color2[2];
+    a1 = s1 * b1 * Math.cos(h1);
+    a2 = s2 * b2 * Math.cos(h2);
+    aa1 = s1 * b1 * Math.sin(h1);
+    aa2 = s2 * b2 * Math.sin(h2);
+    da = a1 - a2;
+    db = aa1 - aa2;
+    dc = b1 - b2;
+    return Math.sqrt(da*da + db*db + dc*dc);
+}
+
+/**
  * generate random offset color based on a chosen color
  * 
  * @param {*} baseColor a color, @see{@link parseColor} for more info
@@ -199,7 +242,7 @@ export function gradientRGB(n, from, to, type, sat = 1, bri = 1) {
         case "UR":
             for (let i = 0; i < array.length; i++) {
                 let h = from + Math.random() * del;
-                while(h < 0) h ++;
+                while (h < 0) h++;
                 h = h % 1;
                 array[i] = HSBtoRGB(h, sat, bri);
             }
@@ -213,7 +256,7 @@ export function gradientRGB(n, from, to, type, sat = 1, bri = 1) {
             for (let i = 0; i < array.length; i++) {
                 let maxJitter = (del / n) / 2;
                 let h = from + i * del / n + (Math.random() * 2 - 1) * maxJitter;
-                while(h < 0) h ++;
+                while (h < 0) h++;
                 h = h % 1;
                 array[i] = HSBtoRGB(h, sat, bri);
             }
