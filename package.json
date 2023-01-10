@@ -1,6 +1,6 @@
 {
   "name": "colorgen-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A color generation library for javascript",
   "main": "docs/dist/colorgen.js",
   "scripts": {

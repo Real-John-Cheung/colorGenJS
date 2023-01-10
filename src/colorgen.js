@@ -468,6 +468,29 @@ export function to32BitARGB(color, alpha) {
     return alpha | r | g | b;
 }
 
+/**
+ * cast the color to css string
+ * 
+ * @param {*} color input color
+ * @param {number} alpha optional, alpha value between 0-1
+ * @param {boolean} forceHex optional, if true and alpha is used, return color in #rrggbbaa, this notation may not be supported on old browsers
+ * @returns {string} the result css string
+ * @tutorial toCSSString
+ */
+export function toCSSString(color, alpha = undefined, forceHex = false) {
+    color = parseColor(color);
+    if (alpha !== undefined) {
+        if (!forceHex) return `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${alpha})`;
+        let hex = to32BitRGB(color, alpha).toString(16);
+        while (hex.length < 6) hex = "0" + hex;
+        return "#" + hex;
+    } else {
+        let hex = to24BitRGB(color).toString(16);
+        while (hex.length < 6) hex = "0" + hex;
+        return "#" + hex;
+    }
+}
+
 function floatToIntRGB(r, g, b) {
     return [r * 255, g * 255, b * 255];
 }

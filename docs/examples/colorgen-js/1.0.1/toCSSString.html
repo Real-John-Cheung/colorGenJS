@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Color Gen JS Example - RandomRGB</title>
+    <meta charset="utf-8">
+
+</head>
+
+<body>
+    <h3>Code</h3>
+    <div id="code">
+        <pre>
+            <code>
+&lt;div id="target" style="width: 100%; height: 100px; text-align: center; font-size: 50px;">
+    &lt;div class="b" style="position: relative; top:0px; left:0px; width: 40%; height:60px;">&lt;/div>
+    &lt;div class="b" style="position: relative; top:10px; left:33%; width: 40%; height:60px;">&lt;/div>
+    &lt;div class="b" style="position: relative; top:20px; left:67%; width: 40%; height:60px;">&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;script src="../../../dist/colorgen.js">&lt;/script>
+&lt;script>
+    let tar = document.getElementById("target");
+    function go(){
+        let colors = [colorgen.randomRGB(), colorgen.randomRGB(), colorgen.randomRGB()];
+        let alpha = Math.random();
+        let blocks = tar.getElementsByClassName("b");
+        for (let i = 0; i &lt; blocks.length; i++) {
+            let cssColor = colorgen.toCSSString(colors[i], i === 2 ? alpha : undefined);
+            blocks[i].style.backgroundColor = cssColor;
+        }
+    }
+    go();
+    tar.onclick = go;
+&lt;/script>
+            </code>
+        </pre>
+    </div>
+    <h3>Result</h3>
+    <div id="live">
+        <div id="target" style="width: 100%; height: 100px; text-align: center; font-size: 50px;">
+            <div class="b" style="position: relative; top:0px; left:0px; width: 40%; height:60px;"></div>
+            <div class="b" style="position: relative; top:10px; left:33%; width: 40%; height:60px;"></div>
+            <div class="b" style="position: relative; top:20px; left:67%; width: 40%; height:60px;"></div>
+        </div>
+        </div>
+        </div>
+        <script src="../../../dist/colorgen.js"></script>
+        <script>
+            let tar = document.getElementById("target");
+            function go(){
+                let colors = [colorgen.randomRGB(), colorgen.randomRGB(), colorgen.randomRGB()];
+                let alpha = Math.random();
+                let blocks = tar.getElementsByClassName("b");
+                for (let i = 0; i < blocks.length; i++) {
+                    let cssColor = colorgen.toCSSString(colors[i], i === 2 ? alpha : undefined);
+                    blocks[i].style.backgroundColor = cssColor;
+                }
+            }
+            go();
+            tar.onclick = go;
+        </script>
+    </div>
+</body>
