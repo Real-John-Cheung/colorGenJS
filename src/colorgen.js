@@ -105,7 +105,7 @@ export function colorDistanceHSB(color1, color2) {
     da = a1 - a2;
     db = aa1 - aa2;
     dc = b1 - b2;
-    return Math.sqrt(da*da + db*db + dc*dc);
+    return Math.sqrt(da * da + db * db + dc * dc);
 }
 
 /**
@@ -454,18 +454,27 @@ export function to24BitRGB(color) {
  * @param {*} color the color to cast, 
  * @see {@link parseColor} for input options
  * @param {number} alpha alpha value of the color output, 0 - 255
+ * @param {boolean} rgba optional, if true, output in RRGGBBAA format
  * @returns {color} a 32bit int color
  * @see to24BitRGB
  */
-export function to32BitARGB(color, alpha) {
+export function to32BitARGB(color, alpha, rgba = false) {
     color = parseColor(color);
     let r = Math.round(color[0]);
     let g = Math.round(color[1]);
     let b = Math.round(color[2]);
-    a = a << 24;
-    r = r << 16;
-    g = g << 8;
-    return alpha | r | g | b;
+    let a = alpha * 255;
+    if (!rgba) {
+        a = a << 24;
+        r = r << 16;
+        g = g << 8;
+        return a | r | g | b;
+    } else {
+        r = r << 24;
+        g = g << 16;
+        b = b << 8;
+        return r | g | b | a;
+    }
 }
 
 /**
@@ -481,7 +490,7 @@ export function toCSSString(color, alpha = undefined, forceHex = false) {
     color = parseColor(color);
     if (alpha !== undefined) {
         if (!forceHex) return `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${alpha})`;
-        let hex = to32BitRGB(color, alpha).toString(16);
+        let hex = to32BitARGB(color, alpha, true).toString(16);
         while (hex.length < 6) hex = "0" + hex;
         return "#" + hex;
     } else {
