@@ -4,7 +4,7 @@ A color generation library for JavaScript
 This library also has a [version for Java](https://github.com/Real-John-Cheung/colorGenJava)
 
 ## Install
-To use the library, download the `colorgen.js` file [click here](hhttps://real-john-cheung.github.io/colorGenJS/dist/colorgen.js)
+To use the library, download the `colorgen.js` file ([click here](https://real-john-cheung.github.io/colorGenJS/dist/colorgen.js))
 ```
 <script src="/path/to/colorgen.js"></script>
 <script>
