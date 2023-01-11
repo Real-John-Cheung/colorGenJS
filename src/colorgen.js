@@ -38,6 +38,11 @@ export function parseColor(color) {
         r = color.R;
         g = color.G;
         b = color.B;
+    } else if (typeof color === 'string' && color.startsWith("#")) { 
+        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+        r = parseInt(result[1], 16);
+        g = parseInt(result[2], 16);
+        b = parseInt(result[3], 16);
     } else {
         r = color >>> 16 & 0xff;
         g = color >>> 8 & 0xff;
